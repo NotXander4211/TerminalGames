@@ -65,6 +65,29 @@ def updateHist(hist, curCharacter):
 def getNewChar():
     return random.choice([k for k, _ in characters.items()])
 
+def lister():
+    reset = "\033[0m"
+    for n, c in characters.items():
+        color = "\033[0m"
+
+        match c.getVal("vision", "anemo"):
+            case "anemo":
+                color = "\033[1;37m"
+            case "cryo":
+                color = "\033[0;36m"
+            case "hydro":
+                color = "\033[0;34m"
+            case "electro":
+                color = "\033[0;35m"
+            case "geo":
+                color = "\033[1;33m"
+            case "dendro":
+                color = "\033[0;32m"
+            case "pyro":
+                color = "\033[1;31m"
+        print(f"{color}{n}{reset}", flush=True, end="  ")
+    print("\n")
+        
 
 def printer():
     global Everything
@@ -89,9 +112,12 @@ def reset(h):
 def main(selectedChar):
     global win, lose
     round = 1
-    while (inp := input(f"\033[36mGuess a Character({round}/5): ")) != "exit":
+    while (inp := input(f"\033[36mGuess a Character({round}/5): ").lower()) != "exit":
         # print(inp)
         reset(False)
+        if inp.lower() == "list":
+            lister()
+            continue
         if inp.lower() in characters.keys():
             history.append(inp)
         else:
