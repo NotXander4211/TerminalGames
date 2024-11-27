@@ -67,8 +67,10 @@ def getNewChar():
 
 def lister():
     reset = "\033[0m"
+    charRegions = {"mondstadt": [], "liyue": [], "inazuma": [], "sumeru": [], "fontaine": [], "natlan": [], "snezhnaya": []}
     for n, c in characters.items():
         color = "\033[0m"
+        weapon = f"[{c.getVal('weapon', 'sword')}]"
 
         match c.getVal("vision", "anemo"):
             case "anemo":
@@ -85,9 +87,26 @@ def lister():
                 color = "\033[0;32m"
             case "pyro":
                 color = "\033[1;31m"
-        print(f"{color}{n}{reset}", flush=True, end="  ")
-    print("\n")
-        
+        match c.getVal("region", "mondstadt"):
+            case "mondstadt":
+                charRegions["mondstadt"].append(f"{color}{n}{weapon}{reset}")
+            case "liyue":
+                charRegions["liyue"].append(f"{color}{n}{weapon}{reset}")
+            case "inazuma":
+                charRegions["inazuma"].append(f"{color}{n}{weapon}{reset}")
+            case "sumeru":
+                charRegions["sumeru"].append(f"{color}{n}{weapon}{reset}")
+            case "fontaine":
+                charRegions["fontaine"].append(f"{color}{n}{weapon}{reset}")
+            case "natlan":
+                charRegions["natlan"].append(f"{color}{n}{weapon}{reset}")
+            case "snezhnaya":
+                charRegions["snezhnaya"].append(f"{color}{n}{weapon}{reset}")
+    for n, v in charRegions.items():
+        print(f"{reset}{n.upper()}: ")
+        for i in v:
+            print(i, sep="", end="  ", flush=True)
+        print("\n")
 
 def printer():
     global Everything
