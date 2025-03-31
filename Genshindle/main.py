@@ -25,7 +25,8 @@ def loadData(filename) -> dict[str, Character]:
             toReturn[name.lower()] = Character(charData[0].lower(), charData[1].lower(), charData[2].lower(), charData[3].lower(), charData[4].lower())
     return toReturn
 #VARS
-characters = loadData("assets.gns")
+path = os.environ["TERMGAMES"]
+characters = loadData(f"{path}assets/Genshindle/assets.gns")
 defaultCharacter = Character("mondstadt", "sword", "anemo", "dvalin", "0.0")
 
 def logic(toCheck: str, curChar: str, value: str):
